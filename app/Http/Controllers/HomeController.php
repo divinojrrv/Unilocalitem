@@ -29,7 +29,6 @@ class HomeController extends Controller
 {
     const USERADM = 1;
     const USERCOMUM = 0;
-//teste
     const PUBLI_PENDENTES = 1;
     const PUBLI_NAOACEITA = 2;
     const PUBLI_EMABERTO = 3;
