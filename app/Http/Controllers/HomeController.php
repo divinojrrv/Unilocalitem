@@ -29,6 +29,7 @@ class HomeController extends Controller
 {
     const USERADM = 1;
     const USERCOMUM = 0;
+
     const PUBLI_PENDENTES = 1;
     const PUBLI_NAOACEITA = 2;
     const PUBLI_EMABERTO = 3;
@@ -348,6 +349,9 @@ class HomeController extends Controller
         $categorias_combobox = Categoria::pluck('NOME', 'ID');
         $blocos_combobox = Bloco::pluck('NOME', 'ID');
         
+        // Busca os dados da imagem relacionada com a publicação (caso exista)
+        //$imagem = DB::table('imagens')->where('publicacao_id', $item->id)->first();
+       // return view('/Publicacao/criar_alterar-publicacao', compact('item', 'categorias_combobox', 'blocos_combobox', 'imagem'));
 
         return view('/Publicacao/criar_alterar-publicacao', compact('item', 'categorias_combobox', 'blocos_combobox'));
     }
