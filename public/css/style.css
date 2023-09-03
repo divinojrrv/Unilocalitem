@@ -1,0 +1,13 @@
+.icon {
+    position: absolute;
+    bottom: 10px; /* Define a distância do ícone em relação à parte inferior */
+    right: 10px; /* Define a distância do ícone em relação à parte direita */
+    font-size: 24px; /* Tamanho do ícone */
+    color: rgba(8, 135, 192, 1);
+}
+
+.actions{
+    position: absolute;
+    bottom: 10px; /* Define a distância do ícone em relação à parte inferior */
+    right: 10px;
+}
