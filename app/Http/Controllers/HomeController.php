@@ -349,9 +349,6 @@ class HomeController extends Controller
         $categorias_combobox = Categoria::pluck('NOME', 'ID');
         $blocos_combobox = Bloco::pluck('NOME', 'ID');
         
-        // Busca os dados da imagem relacionada com a publicação (caso exista)
-        //$imagem = DB::table('imagens')->where('publicacao_id', $item->id)->first();
-       // return view('/Publicacao/criar_alterar-publicacao', compact('item', 'categorias_combobox', 'blocos_combobox', 'imagem'));
 
         return view('/Publicacao/criar_alterar-publicacao', compact('item', 'categorias_combobox', 'blocos_combobox'));
     }

@@ -209,7 +209,7 @@ class ResgatesController extends Controller
             $imagensObjeto->IDOBJETO_RESGATE = $idObjeto;
         }
     
-        $imagensObjeto->TIPO = $tipo; // Defina o valor correto para o tipo de objeto, se necessário
+        $imagensObjeto->TIPO = $tipo;
         $imagensObjeto->save();
     }
 
