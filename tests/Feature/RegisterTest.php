@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 
 
@@ -22,7 +22,7 @@ class RegisterTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-        $response = $this->post('/Usuario/CadastrarUser', [
+        $response = $this->post('/Usuario', [
             'nome' => 'Test User',
             'cpf' => '35178114086',
             'email' => 'test@example.com',
@@ -31,7 +31,7 @@ class RegisterTest extends TestCase
             'status' => 1,
         ]);
 
-        //$this->assertAuthenticated();
+
         $response->assertRedirect(RouteServiceProvider::HOME);
         
     }
