@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('login.telainicial');
+Route::post('/', [HomeController::class, 'index']);
 
 
 Route::post('/Home', [LoginController::class, 'realizar_Login']);

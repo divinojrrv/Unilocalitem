@@ -20,7 +20,7 @@ class AuthLoginTest extends TestCase
             'password' => bcrypt('password'), 
         ]);
 
-        $response = $this->post('/', [
+        $response = $this->get('/', [
             'cpf' => '99999999999',
             'password' => 'password',
         ]);
