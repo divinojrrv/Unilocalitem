@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 
 //Route::get('/Home', [HomeController::class, 'homepubli'])->name('usuario.telainicial')->middleware('auth');
 
+// Route::get('/home', [HomeController::class, 'homepubli'])->name('usuario.telainicial');
 
 
 
