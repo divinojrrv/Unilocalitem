@@ -5,16 +5,29 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class AuthLoginTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+
+    public function test_login(): void
+    {
+
+        $user = User::factory()->create([
+            'cpf' => '99999999999',
+            'password' => bcrypt('password'), 
+        ]);
+
+        $response = $this->post('/', [
+            'cpf' => '99999999999',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect('/Home');
+
+
+        //$this->assertAuthenticatedAs($user);
     }
 }
