@@ -6,28 +6,35 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class AuthLoginTest extends TestCase
 {
     use RefreshDatabase;
 
-
-    public function test_login(): void
+    public function test_login()
     {
+        $user = User::factory()->create(); // Crie um usuário fictício
 
-        $user = User::factory()->create([
-            'cpf' => '99999999999',
-            'password' => bcrypt('password'), 
+        // Faça uma solicitação POST para o endpoint de login personalizado
+        $response = $this->post('/Home', [
+            'cpf' => $user->cpf,
+            'password' => 'password', // Substitua 'password' pela senha correta do usuário
         ]);
 
-        $response = $this->get('/', [
-            'cpf' => '99999999999',
-            'password' => 'password',
-        ]);
+        // Verifique se a resposta é bem-sucedida (200)
+        $response->assertStatus(200);
 
-        $response->assertRedirect('/Home');
-
-
+        // Verifique se o usuário foi autenticado
         //$this->assertAuthenticatedAs($user);
+
+        // Adicione um log para verificar o usuário autenticado
+        //Log::info($user);
+
+        // Verifique se o usuário foi redirecionado para a rota correta
+        $response->assertRedirect(route('usuario.telainicial'));
+
+        // Verifique se a variável de sessão 'user_id' está definida corretamente
+        $this->assertEquals($user->id, session('user_id'));
     }
 }

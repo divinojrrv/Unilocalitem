@@ -18,9 +18,12 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    
     public function definition(): array
     {
+        $userId = 123;
         return [
+            'id' => $userId,
             'nome' => $this->faker->name(),
             'cpf' => $this->generateFakeCpf(), // Use uma função personalizada para gerar CPFs falsos
             'email' => $this->faker->unique()->safeEmail(),

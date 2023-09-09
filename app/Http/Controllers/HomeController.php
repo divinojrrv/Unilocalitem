@@ -60,8 +60,11 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             Auth::logout();
-            $request->session()->invalidate();
 
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+    
             $request->session()->regenerateToken();
         }
     
@@ -73,10 +76,12 @@ class HomeController extends Controller
     {
 
         $perPage = 10;
+        
 
         if (session('user_tipousuario') == self::USERADM) {
             $items = $this->publicacoesRepository->paginateTodasPubli($perPage,self::PUBLI_EMABERTO);
         } else {
+            $userID = session('user_id') ?? 0; 
             $items = $this->publicacoesRepository->paginateExcluindoUser($perPage,self::PUBLI_EMABERTO,session('user_id'));
         }
 
