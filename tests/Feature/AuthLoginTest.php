@@ -15,15 +15,15 @@ class AuthLoginTest extends TestCase
 
     public function test_login()
     {
-        $user = User::factory()->create(); // Crie um usuário fictício
+        $user = User::factory()->create(); 
 
-        // Faça uma solicitação POST para o endpoint de login personalizado
+
         $response = $this->post('/Home', [
             'cpf' => $user->cpf,
-            'password' => 'password', // Substitua 'password' pela senha correta do usuário
+            'password' => 'password', 
         ]);
 
-        $response->assertStatus(200);
+
         $response->assertRedirect(RouteServiceProvider::inicial);
     }
 }
