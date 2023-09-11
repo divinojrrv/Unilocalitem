@@ -41,7 +41,7 @@ class HomeControllerTest extends TestCase
 
         // Verifique se a view foi renderizada corretamente
         $response->assertStatus(200); // Verifique o código de status apropriado
-        $response->assertViewIs('PubliPendentesUserComum'); // Substitua 'nomedaview' pelo nome correto da view
+        $response->assertRedirect(route('/Publicacao/PubliPendentesUserComum')); // Use a função route() para gerar a URL da rota nomeada
 
         // Você também pode verificar se os dados esperados estão na view
         $response->assertSee('Publicações Pendentes');
