@@ -81,7 +81,6 @@ class HomeController extends Controller
         if (session('user_tipousuario') == self::USERADM) {
             $items = $this->publicacoesRepository->paginateTodasPubli($perPage,self::PUBLI_EMABERTO);
         } else {
-            $userID = session('user_id') ?? 0; 
             $items = $this->publicacoesRepository->paginateExcluindoUser($perPage,self::PUBLI_EMABERTO,session('user_id'));
         }
 
