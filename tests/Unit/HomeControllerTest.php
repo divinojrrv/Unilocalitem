@@ -7,11 +7,18 @@ use Illuminate\Http\Request;
 use App\Repositories\PublicacoesRepository;
 use App\Models\Publicacoes; 
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Providers\RouteServiceProvider;
 
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
+
 
 class HomeControllerTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic unit test example.
      */
