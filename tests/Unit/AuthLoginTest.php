@@ -23,27 +23,19 @@ class AuthLoginTest extends TestCase
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
        $user = User::factory()->create();
- /*
-        Teste manualmente
+
         $response = $this->followingRedirects()->post('/Home', [
             'cpf' => $user->cpf,
             'password' => 'password',
         ]);
-    
-        $response->assertStatus(200); // Verifique se o redirecionamento foi bem-sucedido
-    */
 
-        $response = $this->post('/Home', [
-            'cpf' => $user->cpf,
-            'password' => 'password',
-        ]);
+        $response->assertStatus(200);
 
-        $this->assertAuthenticated(); // Verifica se o usuário está autenticado corretamente
-        $response->assertRedirect(route('/Home')); // Use a função route() para gerar a URL da rota nomeada
 
-        //$response = $this->get('/Home');
-        //$response->assertStatus(200);       
-    
+        $this->assertAuthenticated(); 
+        $response->assertRedirect(route('usuario.telainicial')); 
+
+
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void

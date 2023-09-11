@@ -18,8 +18,15 @@ use App\Http\Controllers\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('login.telainicial');
 Route::post('/', [HomeController::class, 'index']);
 
+Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
+Route::post('/Home', [LoginController::class, 'realizar_Login']);
+
+
+
+
+
 Route::middleware(['auth'])->group(function () {
-  Route::post('/Home', [LoginController::class, 'realizar_Login']);
+  
   Route::get('/Home', [HomeController::class, 'homepubli'])->name('usuario.telainicial');
 
   //Resgatar
@@ -56,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/Publicacao/Consultar', [HomeController::class, 'Consultar']);
   Route::post('/Publicacao/Consultar', [HomeController::class, 'RealizarConsulta'])->name('consultar.publicacoes');
 
-  Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
+ 
   Route::get('/Usuario/VisualizarUser', [HomeController::class, 'listar_user']);
   Route::get('/Usuario/alteraruser', [HomeController::class, 'AlterarUser_Engrenagem']);
   Route::get('/Usuario/alteraruserADM', [HomeController::class, 'AlterarUserADM']);
@@ -86,19 +93,9 @@ Route::middleware(['auth'])->group(function () {
   Route::get('/Publicacao/Manifestadas', [ManifestacoesController::class, 'Manifestadas'])->name('manifestacoes.manifestadas');
 
 
-  //Route::get('/', [HomeController::class, 'NaoAceitasADM'])->name('publicacoes.naoaceitasADM');
-  //Route::get('/usuario/edit/{id}', [UsuarioController::class, 'editADM'])->name('usuario.editADM');
 
-
-  //Route::get('/welcome', '\App\Http\Controllers\HomeController@welcome')->name('welcome');
-
-  //Route::get('/login', 'LoginController@showLoginForm')->name('login');
-
-  //Route::get('/', function () {
-    // return view('login');
-  //});
-
-  require __DIR__.'/auth.php';
+  
 
 });
 
+require __DIR__.'/auth.php';
