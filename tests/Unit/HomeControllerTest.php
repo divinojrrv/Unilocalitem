@@ -46,7 +46,7 @@ class HomeControllerTest extends TestCase
         $response = $controller->CadastrarPubli($request);
 
         $response->assertStatus(200); // Verifique o código de status apropriado
-        $response->assertViewIs('PubliPendentesUserComum'); // Substitua 'nomedaview' pelo nome correto da view
+        $response->assertRedirect(route('/Publicacao/PubliPendentesUserComum')); // Use a função route() para gerar a URL da rota nomeada
 
 
         $response->assertSee('Publicações Pendentes');
