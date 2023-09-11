@@ -38,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
   //Publicacoes
   Route::get('/Publicacao/criar_alterar-publicacao/{ID}', [HomeController::class, 'EditarPubli'])->name('publicacoes.edit');
-  Route::get('/Publicacao/criar_alterar-publicacao', [HomeController::class, 'CadastrarPubli']);
+  Route::get('/Publicacao/criar_alterar-publicacao', [HomeController::class, 'CadastrarPubli'])->name('publicacoes.sget');
   Route::post('/Publicacao/criar_alterar-publicacao', [HomeController::class, 'NewPubli'])->name('publicacoes.store');
   Route::get('/Publicacao/criar_alterar-publicacao/{ID}', [HomeController::class, 'EditarPubli'])->name('publicacoes.edit');
   Route::put('/Publicacao/criar_alterar-publicacao/{ID}', [HomeController::class, 'update'])->name('publicacoes.update');
