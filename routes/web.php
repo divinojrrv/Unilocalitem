@@ -18,19 +18,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('login.telainicial');
 Route::post('/', [HomeController::class, 'index']);
 
-Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
-Route::post('/Home', [LoginController::class, 'realizar_Login']);
-
-
-
-
-
 Route::middleware(['auth'])->group(function () {
-<<<<<<< HEAD
-  
-  Route::get('/Home', [HomeController::class, 'homepubli'])->name('usuario.telainicial');
-=======
->>>>>>> 3424f59d6f1afff9d452f9671e9ab8acfbc5137d
 
   Route::middleware(['web'])->group(function () {
 
@@ -71,17 +59,10 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/Publicacao/Consultar', [HomeController::class, 'Consultar']);
       Route::post('/Publicacao/Consultar', [HomeController::class, 'RealizarConsulta'])->name('consultar.publicacoes');
 
-<<<<<<< HEAD
- 
-  Route::get('/Usuario/VisualizarUser', [HomeController::class, 'listar_user']);
-  Route::get('/Usuario/alteraruser', [HomeController::class, 'AlterarUser_Engrenagem']);
-  Route::get('/Usuario/alteraruserADM', [HomeController::class, 'AlterarUserADM']);
-=======
       Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
       Route::get('/Usuario/VisualizarUser', [HomeController::class, 'listar_user']);
       Route::get('/Usuario/alteraruser', [HomeController::class, 'AlterarUser_Engrenagem']);
       Route::get('/Usuario/alteraruserADM', [HomeController::class, 'AlterarUserADM']);
->>>>>>> 3424f59d6f1afff9d452f9671e9ab8acfbc5137d
 
       Route::get('/Usuario', [HomeController::class, 'store']);
       Route::post('/Usuario', [LoginController::class, 'store']);  
@@ -108,10 +89,6 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/Publicacao/Manifestadas', [ManifestacoesController::class, 'Manifestadas'])->name('manifestacoes.manifestadas');
 
 
-<<<<<<< HEAD
-
-  
-=======
       //Route::get('/', [HomeController::class, 'NaoAceitasADM'])->name('publicacoes.naoaceitasADM');
       //Route::get('/usuario/edit/{id}', [UsuarioController::class, 'editADM'])->name('usuario.editADM');
 
@@ -124,10 +101,9 @@ Route::middleware(['auth'])->group(function () {
         // return view('login');
       //});
 
-      require __DIR__.'/auth.php';
+
 
   });
->>>>>>> 3424f59d6f1afff9d452f9671e9ab8acfbc5137d
 
 });
 
