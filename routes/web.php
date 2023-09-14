@@ -13,17 +13,19 @@ use App\Http\Controllers\UserController;
 
 
 
-
-
 Route::get('/', [HomeController::class, 'index'])->name('login.telainicial');
 Route::post('/', [HomeController::class, 'index']);
+Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
+Route::post('/Home', [LoginController::class, 'realizar_Login']);
+
+
 
 Route::middleware(['auth'])->group(function () {
+ 
 
   Route::middleware(['web'])->group(function () {
+    Route::get('/Home', [HomeController::class, 'homepubli'])->name('usuario.telainicial');
 
-      Route::post('/Home', [LoginController::class, 'realizar_Login']);
-      Route::get('/Home', [HomeController::class, 'homepubli'])->name('usuario.telainicial');
 
       //Resgatar
       Route::get('/Publicacao/SolicitarResgate/{ID}', [ResgatesController::class, 'EditarPubliParaResgate'])->name('publicacoes.editresgate');
@@ -59,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/Publicacao/Consultar', [HomeController::class, 'Consultar']);
       Route::post('/Publicacao/Consultar', [HomeController::class, 'RealizarConsulta'])->name('consultar.publicacoes');
 
-      Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
+     
       Route::get('/Usuario/VisualizarUser', [HomeController::class, 'listar_user']);
       Route::get('/Usuario/alteraruser', [HomeController::class, 'AlterarUser_Engrenagem']);
       Route::get('/Usuario/alteraruserADM', [HomeController::class, 'AlterarUserADM']);
