@@ -17,6 +17,7 @@ Route::get('/', [HomeController::class, 'index'])->name('login.telainicial');
 Route::post('/', [HomeController::class, 'index']);
 Route::get('/Usuario/CadastrarUser', [HomeController::class, 'cadastro']);
 Route::post('/Home', [LoginController::class, 'realizar_Login']);
+Route::post('/Usuario', [LoginController::class, 'store']);
 
 
 
@@ -67,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/Usuario/alteraruserADM', [HomeController::class, 'AlterarUserADM']);
 
       Route::get('/Usuario', [HomeController::class, 'store']);
-      Route::post('/Usuario', [LoginController::class, 'store']);  
+    
       Route::post('/Publicacao', [HomeController::class, 'cadastrar_resgate']);
 
       Route::put('/usuario/alteraruser/{ID}', [UserController::class, 'update'])->name('usuario.update');
