@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Publicacoes;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Publicacoes>
@@ -32,15 +33,16 @@ class PublicacoesFactory extends Factory
             'STATUS' => 1,
             'IDCATEGORIA' => function () {
                 // Você pode personalizar a lógica aqui para atribuir uma categoria específica
-                return \App\Models\Categoria::factory()->create()->ID;
+                return \App\Models\Categoria::factory()->create(['ID' => 1]);
+
             },
             'IDBLOCO' => function () {
                 // Você pode personalizar a lógica aqui para atribuir um bloco específico
-                return \App\Models\Bloco::factory()->create()->ID;
+                return \App\Models\Bloco::factory()->create(['ID' => 1]);
             },
             'IDUSUARIO' => function () {
                 // Você pode personalizar a lógica aqui para atribuir um usuário específico
-                return \App\Models\User::factory()->create()->id;
+                return \App\Models\User::factory()->create(['id' => 1]);
             },
         ];
     }

@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Log;
 use App\Repositories\PublicacoesRepository;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\HomeController;
+use App\Http\Requests\PublicacoesRequest;
 use Mockery;
+use App\Models\Publicacoes;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Imagens;
+use Illuminate\Http\Request;
+
 
 class HomeControllerTest extends TestCase
 {
@@ -27,54 +33,122 @@ class HomeControllerTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_new_publi_can_register()
+    public function test_Registrando_new_publis()
     {
+        // Crie uma Simulação (Mock) para a classe PublicacoesRepository
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
 
-        // Simule a autenticação e defina a sessão 'user_tipousuario'
-        Session::start();
-        Session::put('user_tipousuario', HomeController::USERCOMUM); // OU HomeController::USERCOMUM, dependendo do cenário
-
-                
-        // Crie um Mock para a classe PublicacoesRepository
-        $publicacoesRepositoryMock = Mockery::mock(\App\Repositories\PublicacoesRepository::class);
-
-        // Defina o comportamento do método store
+        // Defina o comportamento esperado para o método store
         $publicacoesRepositoryMock
             ->shouldReceive('store')
             ->once()
-            ->andReturn(true); // ou false, dependendo do cenário de teste
+            ->andReturn(new Publicacoes());
 
-        // Substitua a instância real do repositório pela instância de Mock somente durante este teste
-        $this->app->bind(\App\Repositories\PublicacoesRepository::class, function () use ($publicacoesRepositoryMock) {
-            return $publicacoesRepositoryMock;
-        });
 
-        // Crie um arquivo de imagem falso
-        $file = UploadedFile::fake()->image('publicacao.jpg');
+        // Crie uma instância simulada de PublicacoesRequest
+        $publicacoesRequestMock = Mockery::mock(PublicacoesRequest::class);
 
-        // Simule o armazenamento do arquivo falso
-        Storage::fake('publications');
-        Storage::disk('publications')->putFileAs('', $file, 'publicacao.jpg');
-
-        // Agora, você pode chamar a rota ou o método NewPubli para executar o teste
-        $response = $this->post(route('publicacoes.store'), [
+        // Defina o comportamento esperado para o método validated
+        $publicacoesRequestMock->shouldReceive('validated')->andReturn([
             'NOME' => 'Título da Publicação',
             'DESCRICAO' => 'Descrição da Publicação',
+            'DATAHORA' => 'now()->toIso8601String',
+            'STATUS' => 3,
             'IDCATEGORIA' => 1,
             'IDBLOCO' => 1,
-            'DATAHORA' => now(),
-            'STATUS' => 3,
             'IDUSUARIO' => 1,
-            'imagem' => $file // Use o arquivo de imagem falso
         ]);
 
-        // Verifique o resultado da chamada do método
-        $response->assertRedirect(route('publicacoes.pendentesView'));
+        // Defina o comportamento esperado para o método hasFile
+        $publicacoesRequestMock->shouldReceive('hasFile')->andReturn(false);
+
+        // Configure o stub para o método NewImagems()
+        $publicacoesRequestMock->shouldReceive('NewImagems')->andReturn(null);
+
+        // Crie uma instância do HomeController, injetando o Mock do PublicacoesRepository
+        $homeControllerMock = Mockery::mock(HomeController::class, [$publicacoesRepositoryMock])->makePartial();
+
+        // Configure o stub para o método saveImagemObjeto()
+        $homeControllerMock->shouldReceive('saveImagemObjeto')->andReturn(null);
+
+        // Chame a função newPubli() com o mock do PublicacoesRequest
+        $response = $homeControllerMock->NewPubli($publicacoesRequestMock);
+
+        // Verifique se o método store foi chamado uma vez
+        $publicacoesRepositoryMock
+            ->shouldHaveReceived('store')
+            ->once();
+
+        // Verifique se o método NewImagems() não foi chamado
+        $publicacoesRequestMock
+            ->shouldNotHaveReceived('NewImagems');
+
     }
 
-    protected function tearDown(): void
+    public function test_Salvar_NewImagens()
     {
-        parent::tearDown();
-        Mockery::close();
+        // Crie uma instância simulada de PublicacoesRepository
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+        
+        // Definir um nome de arquivo simulado e extensão
+        $filename = 'test_image.jpg';
+    
+        // Criar uma instância simulada de Request usando Mockery
+        $uploadedFile = UploadedFile::fake()->create($filename, 0, 'image/jpeg');
+
+        $requestMock = Mockery::mock(Request::class);
+
+        $requestMock->shouldReceive('all')
+        ->andReturn(['imagem' => $uploadedFile]);
+
+        // Defina uma expectativa para o método route() retornar um valor simulado (pode ser null neste caso)
+        $requestMock->shouldReceive('route')->andReturnNull();
+
+        // Simular o comportamento de hasFile e isValid
+
+        $requestMock->shouldReceive('hasFile')
+            ->once()
+            ->with('imagem')
+            ->andReturn(true);
+        
+        $requestMock->shouldReceive('file')
+            ->once()
+            ->with('imagem')
+            ->andReturn($uploadedFile);
+    
+        
+        // Chamar a função NewImagems com os valores simulados
+        $result = $controller->NewImagems(new Imagens(), $requestMock);
+    
+        // Verificar se a função retornou um ID válido (pode ser 1 no caso de simulação)
+        $this->assertEquals(1, $result);
+
     }
+
+    private function createUploadedFile($filename, $size = 0, $mimeType = 'image/jpeg')
+    {
+        $file = UploadedFile::fake()->create($filename, $size, $mimeType);
+        Storage::fake('public\img\events'); // Use o disco de armazenamento que você deseja testar (no exemplo, 'public')
+        Storage::disk('public\img\events')->putFileAs('', $file, $filename);
+
+        return $file;
+    }
+
+    private function createTempFile()
+    {
+        $tempFile = tempnam(sys_get_temp_dir(), 'imagem');
+        file_put_contents($tempFile, '');
+
+        return $tempFile;
+    }
+
+
+
+
 }

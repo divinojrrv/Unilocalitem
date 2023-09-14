@@ -5,12 +5,20 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Bloco;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Bloco>
  */
 class BlocoFactory extends Factory
 {
+    /**
+     * Define o modelo que a fábrica deve usar.
+     *
+     * @var string
+     */
+    protected $model = Bloco::class;
+
     /**
      * Define the model's default state.
      *

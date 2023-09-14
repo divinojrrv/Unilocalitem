@@ -10,4 +10,6 @@ class Categoria extends Model
     use HasFactory;
 
     protected $categorias = 'categorias';
+    protected $factory = \Database\Factories\CategoriaFactory::class;
+
 }

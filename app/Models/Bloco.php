@@ -10,4 +10,5 @@ class Bloco extends Model
     use HasFactory;
 
     protected $blocos = 'blocos';
+    protected $factory = \Database\Factories\BlocoFactory::class;
 }

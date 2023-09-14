@@ -11,6 +11,7 @@ class Publicacoes extends Model
 
     // Define o nome da coluna da chave primária (caso não seja 'id')
     protected $primaryKey = 'ID';
+    protected $factory = \Database\Factories\PublicacoesFactory::class;
 
     public $fillable = [
         'NOME',

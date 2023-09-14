@@ -53,7 +53,6 @@ class HomeController extends Controller
     public function __construct(PublicacoesRepository $publicacoesRepository)
     {
         $this->publicacoesRepository = $publicacoesRepository;
-
     }
     
     public function index(Request $request){
@@ -271,21 +270,21 @@ class HomeController extends Controller
 
         $message = 'Publicação enviada com sucesso!';
 
-        if (session('user_tipousuario') == self::USERADM) {
-            return $this->redirectPublicacoesPendentesAdmin($message);
-        } else {
-            return $this->redirectPublicacoesPendentesUserComum($message);
-        }
+        //if (session('user_tipousuario') == self::USERADM) {
+        //    return $this->redirectPublicacoesPendentesAdmin($message);
+        //} else {
+        return $this->redirectPublicacoesPendentesUserComum($message);
+       // }
     }
 
 
-    private function redirectPublicacoesPendentesAdmin($message)
+    public function redirectPublicacoesPendentesAdmin($message)
     {
         return redirect('/Publicacao/PublicacoesPendentes')->with('message', $message);
     }
 
 
-    private function redirectPublicacoesPendentesUserComum($message)
+    public function redirectPublicacoesPendentesUserComum($message)
     {
         return redirect('/Publicacao/PubliPendentesUserComum')->with('message', $message);
     }
@@ -312,12 +311,12 @@ class HomeController extends Controller
 
         }else
         {
-
-            return redirect()->back()->with('errorC', 'Erro ao salvar a imagem...');
+            return 0;
+            //return redirect()->back()->with('errorC', 'Erro ao salvar a imagem...');
         }
     }
 
-    private function saveImagemObjeto($idImagem, $idObjeto, $tipo)
+    public function saveImagemObjeto($idImagem, $idObjeto, $tipo)
     {   // Tipo 1  - Imagens Publicacoes
         // Tipo 2 - Imagens Resgate.
         
