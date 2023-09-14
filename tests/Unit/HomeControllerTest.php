@@ -2,46 +2,43 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\HomeController;
-use Illuminate\Http\Request;
-use App\Repositories\PublicacoesRepository;
-use App\Models\Publicacoes; 
-
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use App\Providers\RouteServiceProvider;
-
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
-
 
 class HomeControllerTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic unit test example.
-     */
-    public function testViewRender(){
-        
-        // Crie uma instância de Publicacoes
-        $publicacoesModel = new Publicacoes(); // Certifique-se de ajustar isso conforme a estrutura do seu projeto
 
-        // Crie uma instância de PublicacoesRepository e passe a instância de Publicacoes
-        $publicacoesRepository = new PublicacoesRepository($publicacoesModel);
+    public function test_registration_screen_can_be_rendered(): void
+    {
+        $response = $this->get(route('publicacoes.sget'));
 
-        // Crie uma instância do HomeController e passe a instância de PublicacoesRepository
-        $controller = new HomeController($publicacoesRepository);
+        $response->assertStatus(302);
+    }
 
-        // Crie uma instância de Request com os dados que você deseja testar
-        $request = new Request([
-            'NOME' => 'Teste de Título',
-            'DESCRICAO' => 'Teste de Descrição',
-            'IDCATEGORIA' => 1, // Substitua pelo valor correto
-            'IDBLOCO' => 1, // Substitua pelo valor correto
-            'DATAHORA' => '2023-09-10T12:00', // Substitua pela data/hora correta
-            // Adicione outros campos necessários
+    public function test_new_publi_can_register(): void
+    {
+        $user = User::factory()->create(); // Crie um usuário fictício
+        $this->actingAs($user); // Autentique o usuário
+
+        $response = $this->post(route('publicacoes.store'), [
+            'NOME' => 'Título da Publicação',
+            'DESCRICAO' => 'Descrição da Publicação',
+            'IDCATEGORIA' => 1, // Substitua pelo ID da categoria correto
+            'IDBLOCO' => 1, // Substitua pelo ID do bloco correto
+            'DATAHORA' => now(), // Use a data/hora atual
+            'STATUS' => 3,
+            'IDUSUARIO' => 1,
+            'imagem' => UploadedFile::fake()->image('publicacao.jpg') // Substitua pelo arquivo de imagem correto
         ]);
+<<<<<<< HEAD
 /*
         $response = $controller->CadastrarPubli($request);
 
@@ -54,3 +51,10 @@ class HomeControllerTest extends TestCase
 
         }
 }
+=======
+
+
+        $response->assertRedirect(route('publicacoes.pendentesView'));
+    }
+}
+>>>>>>> 3424f59d6f1afff9d452f9671e9ab8acfbc5137d
