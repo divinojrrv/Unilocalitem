@@ -1,52 +1,84 @@
 <?php
+namespace App\Tests\Unit\Controllers;
 
-namespace Tests\Unit;
-
-use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\LoginController;
+use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\User;
-use Illuminate\Support\Facades\Log;
 
-class AuthLoginTest extends TestCase
+class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
-    public function test_login_screen_can_be_rendered(): void
+    public function test_realizar_login_com_sucesso()
     {
-        $response = $this->get('/');
+        // Crie um usuário no banco de dados.
+        $user = User::factory()->create();
 
-        $response->assertStatus(200);
-    }
-
-    public function test_users_can_authenticate_using_the_login_screen(): void
-    {
-       $user = User::factory()->create();
-
-        $response = $this->followingRedirects()->post('/Home', [
+        // Envie uma solicitação de login com o CPF e a senha do usuário.
+        $response = $this->post('/Home', [
             'cpf' => $user->cpf,
             'password' => 'password',
         ]);
 
-        $response->assertStatus(200);
+        // Verifique se o usuário foi autenticado.
+        $this->assertTrue(Auth::check());
 
-
-        $this->assertAuthenticated(); 
-        $response->assertRedirect(route('usuario.telainicial')); 
-
-
+        // Verifique se o usuário foi redirecionado para a rota correta.
+        $response->assertRedirect('/welcome');
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password(): void
+    public function test_realizar_login_com_cpf_invalido()
     {
-        $user = User::factory()->create();
-
-        $this->post('/Home', [
-            'cpf' => $user->cpf,
-            'password' => 'wrong-password',
+        // Envie uma solicitação de login com um CPF inválido.
+        $response = $this->post('/Home', [
+            'cpf' => '12345678901',
+            'password' => 'password',
         ]);
 
-        $this->assertGuest();
+        // Verifique se o usuário não foi autenticado.
+        $this->assertFalse(Auth::check());
+
+        // Verifique se o usuário foi redirecionado para a rota correta.
+        $response->assertRedirect('/')->assertSessionHasErrors(['error']);
+    }
+
+    public function test_realizar_login_com_senha_invalida()
+    {
+        // Crie um usuário no banco de dados.
+        $user = User::factory()->create();
+
+        // Envie uma solicitação de login com a senha incorreta.
+        $response = $this->post('/Home', [
+            'cpf' => $user->cpf,
+            'password' => 'wrong_password',
+        ]);
+
+        // Verifique se o usuário não foi autenticado.
+        $this->assertFalse(Auth::check());
+
+        // Verifique se o usuário foi redirecionado para a rota correta.
+        $response->assertRedirect('/')->assertSessionHasErrors(['error']);
+    }
+
+    public function test_realizar_login_com_usuario_inativo()
+    {
+        // Crie um usuário inativo no banco de dados.
+        $user = User::factory()->create(['status' => 0]);
+
+        // Envie uma solicitação de login com o CPF e a senha do usuário.
+        $response = $this->post('/Home', [
+            'cpf' => $user->cpf,
+            'password' => 'password',
+        ]);
+
+        // Verifique se o usuário não foi autenticado.
+        $this->assertFalse(Auth::check());
+
+        // Verifique se o usuário foi redirecionado para a rota correta.
+        $response->assertRedirect('/')->assertSessionHasErrors(['error']);
     }
 }
