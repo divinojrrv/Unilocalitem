@@ -150,7 +150,7 @@ class HomeControllerTest extends TestCase
 
     public function testRealizarConsulta_todos_os_filtros()
     {
-        // Crie uma instância simulada de PublicacoesRepository
+
         $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
         
         // Registre a instância simulada no container de serviços do aplicativo
@@ -193,4 +193,274 @@ class HomeControllerTest extends TestCase
         $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
     }
 
+    public function testRealizarConsulta_PubliPendete()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 1,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
+
+    public function testRealizarConsulta_NaoAceita()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 2,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
+
+    public function testRealizarConsulta_ResgateEmAndamento()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 4,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
+
+
+    public function testRealizarConsulta_ResgateConcluido()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 5,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
+
+    public function testRealizarConsulta_PubliManifestada()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 6,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
+
+    public function testRealizarConsulta_PubliManifestadaConcluida()
+    {
+
+        $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
+        
+        // Registre a instância simulada no container de serviços do aplicativo
+        app()->instance(PublicacoesRepository::class, $publicacoesRepositoryMock);
+    
+        // Criar uma instância do controlador HomeController
+        $controller = new HomeController($publicacoesRepositoryMock);
+
+        // Crie uma instância simulada de Request
+        $requestMock = Mockery::mock(Request::class);
+
+        session(['user_id' => 1,'user_tipousuario' => 0]); // Substitua pelo valor que deseja usar
+
+        // Defina o comportamento esperado para o método input
+        $requestMock->shouldReceive('input')->andReturn([
+            'datainicio' => '2023-08-01',
+            'datafinal' => '2023-08-31',
+            'IDCATEGORIA' => 1,
+            'IDBLOCO' => 1,
+            'status' => 3,
+        ]);
+
+        // Configure o stub para o método Consultar()
+        $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
+            [
+                'ID' => 1,
+                'NOME' => 'Título da Publicação',
+                'DESCRICAO' => 'Descrição da Publicação',
+                'DATAHORA' => '2023-08-02',
+                'STATUS' => 7,
+                'IDCATEGORIA' => 1,
+                'IDBLOCO' => 1,
+            ],
+        ]);
+
+        // Chame a função `RealizarConsulta()` com o mock do Request
+        $response = $controller->RealizarConsulta($requestMock);
+
+        // Verifique se o método Consultar() foi chamado uma vez
+        $publicacoesRepositoryMock->shouldHaveReceived('Consultar')->once();
+    }
 }

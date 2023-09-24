@@ -38,9 +38,6 @@ class ManifestacoesControllerTest extends TestCase
 
     }
 
-/**
-     * @test
-     */
     public function testManifestarPublicacao_deve_criar_registro_tabela_manifestacoes()
     {
         // Use a fábrica para criar uma publicação simulada no banco de dados de teste
