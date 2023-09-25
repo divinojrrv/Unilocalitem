@@ -59,20 +59,20 @@ class LoginControllerTest extends TestCase
     
         $loginController = new LoginController($publicacoesRepositoryMock);
     
-        // Crie uma solicitação falsa com CPF e senha corretos
+    
         $request = new \Illuminate\Http\Request([
-            'cpf' => '999.999.999-99', // Substitua pelo CPF real
-            'password' => 'senha123', // Substitua pela senha real
+            'cpf' => '999.999.999-99',
+            'password' => 'senha123', 
         ]);
     
-        // Chame a função realizar_Login
+  
         $response = $loginController->realizar_Login($request);
     
-        // Verifique se o redirecionamento é bem-sucedido
+  
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertEquals('/welcome', $response->getTargetUrl());
     
-        // Verifique se a sessão contém informações corretas do usuário
+   
         $this->assertEquals($user->ID, session('user_id'));
         $this->assertEquals($user->nome, session('user_name'));
         $this->assertEquals($user->tipousuario, session('user_tipousuario'));
