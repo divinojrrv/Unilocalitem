@@ -13,14 +13,14 @@ class RegisterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_registration_screen_can_be_rendered(): void
+    public function test_telaCadastro_rendered(): void
     {
         $response = $this->get('/Usuario/CadastrarUser');
 
         $response->assertStatus(200);
     }
 
-    public function test_new_users_can_register(): void
+    public function test_register(): void
     {
         $response = $this->post('/Usuario', [
             'id' => 1,
