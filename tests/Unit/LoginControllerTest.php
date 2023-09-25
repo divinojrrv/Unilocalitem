@@ -19,7 +19,12 @@ class LoginControllerTest extends TestCase
 {
     use RefreshDatabase; 
 
+    public function test_telainicial_Login_() : void
+    {
+        $response = $this->get('/');
 
+        $response->assertStatus(200);
+    }
     public function test_realizar_Login_com_credenciais_corretas()
     {
         $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
@@ -73,6 +78,5 @@ class LoginControllerTest extends TestCase
         $this->assertEquals($user->tipousuario, session('user_tipousuario'));
         $this->assertEquals($user->status, session('user_status'));
     }
-    
-    // Teste outras condições, como CPF ou senha incorretos, usuário inativo, etc.
+
 }

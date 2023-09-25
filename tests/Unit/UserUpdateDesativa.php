@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class UserTest extends TestCase
+class UserUpdateDesativa extends TestCase
 {
     /**
      * A basic unit test example.
      */
-    public function test_example(): void
+    public function UserUpdateDesativa(): void
     {
         $this->assertTrue(true);
     }

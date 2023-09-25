@@ -75,8 +75,6 @@ class HomeController extends Controller
     {
 
         $perPage = 10;
-        
-
         if (session('user_tipousuario') == self::USERADM) {
             $items = $this->publicacoesRepository->paginateTodasPubli($perPage,self::PUBLI_EMABERTO);
         } else {

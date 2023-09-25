@@ -18,6 +18,8 @@ class UserController extends Controller
         }
 
         return view('/Usuario/alteraruser', compact('usuario'));
+
+        
     }
 
 
