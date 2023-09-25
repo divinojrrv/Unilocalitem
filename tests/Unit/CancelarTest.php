@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class UserUpdateDesativa extends TestCase
+class CancelarTest extends TestCase
 {
     /**
      * A basic unit test example.
      */
-    public function UserUpdateDesativa(): void
+    public function CancelarTest(): void
     {
         $this->assertTrue(true);
     }

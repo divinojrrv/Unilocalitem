@@ -18,21 +18,15 @@ class LoginTest extends TestCase
 
 
     public function test_realizar_login_com_cpf_invalido()
-{
-    // Crie um usuário no banco de dados.
-    $user = User::factory()->create();
-
-    // Envie uma solicitação de login com um CPF inválido.
-    $response = $this->post('/Home', [
-        'cpf' => '12345678901',
-        'password' => 'password',
-    ]);
-
-    // Verifique se a resposta da solicitação é um redirecionamento para a rota /login.
-    $response->assertRedirect('/');
-}
+    {
+       
+        $user = User::factory()->create();
 
 
-
-
+        $response = $this->post('/Home', [
+            'cpf' => '12345678901',
+            'password' => 'password',
+        ]);
+        $response->assertRedirect('/');
+    }
 }
