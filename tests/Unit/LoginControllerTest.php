@@ -25,6 +25,8 @@ class LoginControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+   
     public function test_realizar_Login_com_credenciais_corretas()
     {
         $publicacoesRepositoryMock = Mockery::mock(PublicacoesRepository::class);
@@ -80,6 +82,38 @@ class LoginControllerTest extends TestCase
         // assertiva removida
         // $this->assertEquals($user->tipousuario, session('user_tipousuario'));
     }
+
+
+    public function testLoginInativoUser()
+    {
+
+        $usuario = $this->mock(User::class);
+        $usuario->shouldReceive('where')
+            ->with(['cpf' => '12345678900'])
+            ->andReturn($usuario);
+        $usuario->shouldReceive('first')
+            ->andReturn($usuario);
     
+
+        $usuario->shouldReceive('setAttribute')
+            ->with('status', 1); //Status 1 igual usuário inativo
+        
+
+             // Definindo a expectativa para o método getAttribute()
+        $usuario->shouldReceive('getAttribute')
+        ->with('status')
+        ->andReturn(1);
+
+
+        $response = $this->app->call('App\Http\Controllers\LoginController@realizar_Login', [
+            'cpf' => '12345678900',
+            'password' => '123456',
+        ]);
+    
+
+        $this->assertEquals(302, $response->getStatusCode());     
+        $status = $usuario->getAttribute('status');
+        $this->assertNotEquals(0, $status, 'Usuário ativo '); 
+    }
 
 }
