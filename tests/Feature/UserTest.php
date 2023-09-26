@@ -11,7 +11,7 @@ class UserTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    public function test_VisualizarUser(): void
     {
         $response = $this->get('/');
 

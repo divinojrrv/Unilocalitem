@@ -11,14 +11,10 @@ class UserController extends Controller
     public function edit(int $id)
     {
         $usuario = User::find($id);
-       
-
         if (!$usuario) {
             return redirect()->route('usuario.telainicial');
         }
-
         return view('/Usuario/alteraruser', compact('usuario'));
-
         
     }
 
