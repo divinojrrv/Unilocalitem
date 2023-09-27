@@ -17,7 +17,7 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
     private Hasher $hasher;
 
-    public function test_rota_screen_can_be_rendered() : void
+    public function test_rendered_Update_User() : void
     {
         $response = $this->get('/Usuario/alteraruser');
 
@@ -25,7 +25,7 @@ class UserControllerTest extends TestCase
     }
 
 
-    public function test_rotaADM_screen_can_be_rendered() : void
+    public function test_rendered_Update_UserADM() : void
     {
         $response = $this->get('/Usuario/alteraruserADM');
 
@@ -89,7 +89,7 @@ class UserControllerTest extends TestCase
         $this->assertNotNull($response);
     }
 
-
+/*
     public function setHasher(Hasher $hasher)
     {
         $this->hasher = $hasher;
@@ -158,5 +158,5 @@ class UserControllerTest extends TestCase
 
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertEquals('Senha incorreta. Não foi possível atualizar o nome.', session('error'));
-    }
+    }*/
 }

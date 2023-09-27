@@ -412,7 +412,7 @@ class HomeControllerTest extends TestCase
             ],
         ]);
 
-        // Chame a função `RealizarConsulta()` com o mock do Request
+       
         $response = $controller->RealizarConsulta($requestMock);
 
         // Verifique se o método Consultar() foi chamado uma vez
@@ -532,7 +532,7 @@ class HomeControllerTest extends TestCase
             'status' => 3,
         ]);
 
-        // Configure o stub para o método Consultar()
+ 
         $publicacoesRepositoryMock->shouldReceive('Consultar')->once()->andReturn([
             [
                 'ID' => 1,

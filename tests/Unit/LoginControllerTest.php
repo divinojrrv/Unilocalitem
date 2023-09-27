@@ -54,7 +54,7 @@ class LoginControllerTest extends TestCase
         
 
              // Definindo a expectativa para o método getAttribute()
-        $usuario->shouldReceive('getAttribute')
+       $usuario->shouldReceive('getAttribute')
         ->with('status')
         ->andReturn(1);
 
