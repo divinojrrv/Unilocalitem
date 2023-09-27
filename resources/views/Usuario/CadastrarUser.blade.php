@@ -43,7 +43,7 @@
                 <form action="/Usuario" method="POST">
                     @csrf
                     <div class="text-center">
-                        <img src="{{ asset('/img/logo.png') }}" class="img-fluid"/>
+                        <img src="{{ asset('/img/logo.png') }}" class="img-fluid" alt="Imagem Logo"/>
                     </div>
                     
 

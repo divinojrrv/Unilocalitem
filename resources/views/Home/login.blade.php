@@ -1,8 +1,9 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="pt" xml:lang="pt">
     <head>
+        <title></title>
         <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <!-- fonte google -->
@@ -41,7 +42,7 @@
                 @csrf
 
                 
-                <img src="{{ asset('/img/logo.png') }}" class="img-fluid"/>
+                <img src="{{ asset('/img/logo.png') }}" class="img-fluid" alt="Imagem Logo"/>
 
                 <div class="form-floating">
                 <input type="text" class="form-control cpf-mask" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX">
