@@ -1,6 +1,6 @@
-projectKey=Unilocalitem
+projectKey=Unilocalitem_DERS
 serverUrl=http://localhost:9000
 serverVersion=10.1.0.73491
-dashboardUrl=http://localhost:9000/dashboard?id=Unilocalitem
-ceTaskId=AYpxZS5KzwPEu9U3lCmS
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYpxZS5KzwPEu9U3lCmS
+dashboardUrl=http://localhost:9000/dashboard?id=Unilocalitem_DERS
+ceTaskId=AYrYaTaBRCwn_De3BCPJ
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYrYaTaBRCwn_De3BCPJ
