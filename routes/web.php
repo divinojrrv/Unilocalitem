@@ -90,6 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
       Route::get('/Publicacao/ManifestacoesPublicacoes', [ManifestacoesController::class, 'ManifestacoesPublicacoes'])->name('manifestacoes.ManifestacoesPublicacoes');
       Route::get('/Publicacao/Manifestadas', [ManifestacoesController::class, 'Manifestadas'])->name('manifestacoes.manifestadas');
+      Route::get('/Publicacao/devolucoes', [ManifestacoesController::class, 'devolucoes']);
 
 
       //Route::get('/', [HomeController::class, 'NaoAceitasADM'])->name('publicacoes.naoaceitasADM');

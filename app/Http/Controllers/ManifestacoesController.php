@@ -76,6 +76,15 @@ class ManifestacoesController extends Controller
             return view('/Publicacao/ManifestadasUserComum', compact('items'));
         }
     }
+    public function devolucoes(){
+
+        $perPage = 10;
+
+        if (session('user_tipousuario') == self::USERADM) {
+            $items = $this->publicacoesRepository->paginateTodasPubliManifestadas($perPage,self::PUBLI_RESGTCONCLU);
+            return view('/Publicacao/devolucoes', compact('items'));
+        }
+    }
 
 
     public function manifestarPublicacao(Request $request, $id)

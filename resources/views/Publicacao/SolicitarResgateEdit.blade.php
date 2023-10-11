@@ -56,10 +56,13 @@
                 <div class="row">
                     <div class="form-group col-sm-12 col-md-6 mb-3">
                         <textarea class="form-control" readonly id="descricao" name="descricao" value="" rows="4">
+                        Entendo que a veracidade e autenticidade dos documentos anexados são de minha responsabilidade, e eu fornecerei informações precisas e completas.
+                        Ao aceitar este termo, estou ciente de que a equipe responsável pela publicação pode verificar os documentos anexados para garantir a legitimidade do processo de resgate. 
+                        Qualquer tentativa de fornecer informações falsas ou documentos fraudulentos resultará na invalidação do processo de resgate.
                         </textarea>
 
                         <input class="form-check-input" id="tipo" name="tipo" type= "checkbox" style="background-color: rgb(143, 140, 140); outline: none;" checked disabled/>
-                        <label class="form-check-label" for="tipo">Li e estou de acordo com os termos</label>
+                        <label class="form-check-label" for="tipo">Li e compreendi os termos acima e concordo em anexar os documentos</label>
 
              
                     </div>
