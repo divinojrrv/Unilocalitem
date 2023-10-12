@@ -11,7 +11,7 @@
 
 <div class="container pt-4 " style="margin-left: 280px;">
     <div class="mb-3 mt-5">
-        <h3>Publicações</h3>
+        <h3>Resgates Solicitados</h3>
     </div>
     <br>
     @endsection
