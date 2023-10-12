@@ -51,8 +51,9 @@
                             <p class="card-text text-secondary mb-2">Devolvido por: <b>{{ $item->DevolvidoName }}</b> ás {{ $item->devolvidoDATAHORA }}</p>
                             <p class="card-text text-secondary mb-2">Manifestado por: <b>{{ $item->ManifestadoName }}</b> ás {{ $item->manifestacaoDATAHORA }}</p>
                             <div class="row justify-content-end">
-                                <div class="form-group col-sm-12 col-md-6 mb-3 text-end"> 
-                                    <button class="btn btn-primary" style="background-color: rgba(244, 7, 7, 1); outline: none;" type="cancel" >Cancelar</button>
+                            <div class="form-group col-sm-12 col-md-6 mb-3 text-end"> 
+                                    <button class="btn btn-primary" style="background-color: rgb(101, 95, 95); outline: none;" type="button" disabled>Concluída</button>
+                                    &nbsp
                                 </div>
                             </div>
                         </div>

@@ -85,6 +85,8 @@ class PublicacoesRepository
                      'm.DATAHORA as manifestacaoDATAHORA')
             ->paginate($perPage);
 
+
+
         // Obter informações das imagens associadas a cada publicação
         foreach ($publicacoes as $publicacao) {
             
@@ -341,11 +343,11 @@ class PublicacoesRepository
         $query = Publicacoes::query();
 
         if (!empty($dataInicio)) {
-            $query->where('DATAHORA', '>=', $dataInicio);
+            $query->where('publicacoes.DATAHORA', '>=', $dataInicio);
         }
 
         if (!empty($dataFinal)) {
-            $query->where('DATAHORA', '<=', $dataFinal);
+            $query->where('publicacoes.DATAHORA', '<=', $dataFinal);
         }
 
         if (!empty($categoria)) {
