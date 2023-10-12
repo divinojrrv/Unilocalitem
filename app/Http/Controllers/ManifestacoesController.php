@@ -72,7 +72,7 @@ class ManifestacoesController extends Controller
             $items = $this->publicacoesRepository->paginateTodasPubliManifestadas($perPage,self::PUBLI_MANIFESTADA);
             return view('/Publicacao/Manifestadas', compact('items'));
         } else {
-            $items = $this->publicacoesRepository->paginatePorUserManifestadas($perPage,self::PUBLI_MANIFESTADA,session('user_id'));
+            $items = $this->publicacoesRepository->paginatePorUserManifestadas($perPage,self::PUBLI_MANIFESTADACONCLUIDA,session('user_id'));
             return view('/Publicacao/ManifestadasUserComum', compact('items'));
         }
     }
