@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="form-group col-sm-12 col-md-6 mb-3">
                         <label for="email">E-mail:</label>
-                        <input class="form-control" id="email" name="email" readonly value="{{ $usuario->email }}" type= "email" autocomplete="off"/>
+                        <input class="form-control" id="email" name="email" value="{{ $usuario->email }}" type= "email" autocomplete="off"/>
                         @error('email')
                         <div class="alert alert-danger mt-3">(($message))</div>
                         @enderror
