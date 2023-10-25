@@ -51,7 +51,7 @@
                             <div class="form-group col-sm-12 col-md-12 mb-3">
                         
                                 <label for="nome">Nome:</label>
-                                <input class="form-control" id="nome" name="nome" value="mateus" type= "text" autocomplete="off" placeholder="Nome do Usuário"/>
+                                <input class="form-control" id="nome" name="nome" type= "text" autocomplete="off" placeholder="Nome do Usuário"/>
                                 @error('nome')
                                 <div class="alert alert-danger mt-3">Informe Seu nome!</div>
                                 @enderror
@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="form-group col-sm-12 col-md-12 mb-3">
                                 <label for="email">E-mail:</label>
-                                <input class="form-control" id="email" name="email" value="mateus@gmail.com" type= "email" autocomplete="off" placeholder="E-mail"/> 
+                                <input class="form-control" id="email" name="email" type= "email" autocomplete="off" placeholder="E-mail"/> 
                                 
                                 @error('email')
                                 <div class="alert alert-danger mt-3">E-mail inválido ou já cadastrado!</div>
